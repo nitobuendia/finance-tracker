@@ -2,7 +2,9 @@
 
 import flask
 from services import asset_manager
+from services import operation_manager
 from services import portfolio_manager
+from services import position_manager
 
 ui_routes = flask.Blueprint('ui', __name__)
 
@@ -17,8 +19,7 @@ def get_portfolios():
 @ui_routes.route('/portfolios/<portfolio_id>/', methods=['GET'])
 def get_portfolio(portfolio_id):
   managed_portfolio = portfolio_manager.get_portfolio(portfolio_id)
-  portfolio_positions = portfolio_manager.get_porfolio_position(
-      managed_portfolio)
+  portfolio_positions = position_manager.get_positions(managed_portfolio)
 
   return flask.render_template(
       'views/portfolio.jinja2',
@@ -30,7 +31,7 @@ def get_portfolio(portfolio_id):
 @ui_routes.route('/portfolios/<portfolio_id>/history/', methods=['GET'])
 def get_portfolio_history(portfolio_id):
   managed_portfolio = portfolio_manager.get_portfolio(portfolio_id)
-  portfolio_operations = managed_portfolio.operations
+  portfolio_operations = operation_manager.get_operations(managed_portfolio)
 
   return flask.render_template(
       'views/portfolio_history.jinja2',
@@ -44,13 +45,13 @@ def get_portfolio_history(portfolio_id):
 def get_asset(portfolio_id, asset_name):
   managed_portfolio = portfolio_manager.get_portfolio(portfolio_id)
   managed_asset = asset_manager.get_asset(managed_portfolio, asset_name)
-
-  asset_position = asset_manager.get_asset_position(
-      managed_portfolio, managed_asset)
+  asset_operations = asset_manager.get_operations(managed_asset)
+  asset_position = position_manager.get_position(managed_asset)
 
   return flask.render_template(
       'views/asset.jinja2',
       portfolio=managed_portfolio,
       asset=managed_asset,
+      asset_operations=asset_operations,
       asset_position=asset_position,
   )
