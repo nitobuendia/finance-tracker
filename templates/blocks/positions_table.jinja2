@@ -22,10 +22,10 @@
         {% endwith %}
       </div>
       <div class="flex-cell" role="cell">
-        <span>{{ '{:,.0f}'.format(position.quantity) }}</span>
+        {{ '{:,.0f}'.format(position.quantity) }}
       </div>
       <div class="flex-cell" role="cell">
-        <span>{{ '{:,.2f}'.format(position.market_value) }}</span>
+        {{ '{:,.2f}'.format(position.market_value) }}
       </div>
       <div class="flex-cell" role="cell">
         <span {{ macros.get_number_class(position.realized_pl) }}>
