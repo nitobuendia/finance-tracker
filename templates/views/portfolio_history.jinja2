@@ -1,0 +1,8 @@
+{% extends 'base/template.jinja2' %}
+{% block body %}
+  <h1>History: {{ portfolio.name }}</h1>
+
+  {% with operations_list = portfolio_operations %}
+    {% include 'blocks/operations_table.jinja2' %}
+  {% endwith %}
+{% endblock %}

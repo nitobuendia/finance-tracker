@@ -1,0 +1,23 @@
+<div class="flex-table" role="table" aria-label="Asset Positions">
+
+  <div class="flex-header-row" role="row">
+    <div class="flex-cell" role="columnheader">Asset</div>
+    <div class="flex-cell" role="columnheader">Quantity</div>
+    <div class="flex-cell" role="columnheader">Balance</div>
+  </div>
+
+  {% for position in positions_list %}
+    <div class="flex-row" role="row">
+      <div class="flex-cell" role="cell">{{ position.asset.name }}</div>
+      <div class="flex-cell" role="cell">
+        <span>{{ '{:,.0f}'.format(position.quantity) }}</span>
+      </div>
+      <div class="flex-cell" role="cell">
+        <span>{{ '{:,.2f}'.format(position.balance) }}</span>
+      </div>
+    </div>
+  {% else %}
+    <div class="flex-row" role="row"><i>No assets found.</i></div>
+  {% endfor %}
+
+</div>

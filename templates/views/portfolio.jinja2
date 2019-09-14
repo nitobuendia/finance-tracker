@@ -1,0 +1,8 @@
+{% extends 'base/template.jinja2' %}
+{% block body %}
+  <h1>Portfolio: {{ portfolio.name }}</h1>
+
+  {% with positions_list = portfolio_positions.values() %}
+    {% include 'blocks/positions_table.jinja2' %}
+  {% endwith %}
+{% endblock %}

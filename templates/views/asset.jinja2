@@ -1,0 +1,14 @@
+{% extends 'base/template.jinja2' %}
+{% block body %}
+  <h1>Asset: {{ asset.name }} ({{ portfolio.name }})</h1>
+
+  <h2>Balance</h2>
+  {% with positions_list = [asset_position] %}
+    {% include 'blocks/positions_table.jinja2' %}
+  {% endwith %}
+
+  <h2>History</h1>
+   {% with operations_list = asset_position.operations %}
+    {% include 'blocks/operations_table.jinja2' %}
+  {% endwith %}
+{% endblock %}

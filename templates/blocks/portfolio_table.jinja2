@@ -1,0 +1,23 @@
+<div class="flex-table" role="table" aria-label="Portfolios">
+
+  <div class="flex-header-row" role="row">
+    <div class="flex-cell" role="columnheader">Id</div>
+    <div class="flex-cell" role="columnheader">Name</div>
+    <div class="flex-cell" role="columnheader">Operations</div>
+  </div>
+
+  {% for portfolio in portfolio_list %}
+    <div class="flex-row" role="row">
+      <div class="flex-cell" role="cell">{{ portfolio.get_id() }}</div>
+      <div class="flex-cell" role="cell">
+        <a href="/portfolios/{{ portfolio.get_id() }}/">
+          {{ portfolio.name }}
+        </a>
+      </div>
+      <div class="flex-cell" role="cell">&nbsp;</div>
+    </div>
+  {% else %}
+    <div class="flex-row" role="row"><i>No portfolios found.</i></div>
+  {% endfor %}
+
+</div>

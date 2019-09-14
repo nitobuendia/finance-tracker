@@ -1,0 +1,39 @@
+<div class="flex-table" role="table" aria-label="Operations">
+
+  <div class="flex-header-row" role="row">
+    <div class="flex-cell" role="columnheader">Date</div>
+    <div class="flex-cell" role="columnheader">Asset</div>
+    <div class="flex-cell" role="columnheader">Operation</div>
+    <div class="flex-cell" role="columnheader">Quantity</div>
+    <div class="flex-cell" role="columnheader">Price/Unit</div>
+    <div class="flex-cell" role="columnheader">Total</div>
+  </div>
+
+  {% for operation in operations_list %}
+    <div class="flex-row" role="row">
+      <div class="flex-cell" role="cell">
+        {{ operation.timestamp.strftime('%Y-%m-%d %H:%M') }}
+      </div>
+      <div class="flex-cell" role="cell">
+        {{ operation.managed_asset.name }}
+      </div>
+      <div class="flex-cell" role="cell">
+        {{ operation.operation_type | replace('OperationType.', '') }}
+      </div>
+      <div class="flex-cell" role="cell">
+        <span>{{ '{:,.0f}'.format(operation.quantity) }}</span>
+      </div>
+      <div class="flex-cell" role="cell">
+        <span>{{ '{:,.2f}'.format(operation.price_per_unit) }}</span>
+      </div>
+      <div class="flex-cell" role="cell">
+        <span>
+          {{ '{:,.2f}'.format(operation.price_per_unit * operation.quantity) }}
+        </span>
+      </div>
+    </div>
+  {% else %}
+    <div class="flex-row" role="row"><i>No operations found.</i></div>
+  {% endfor %}
+
+</div>
