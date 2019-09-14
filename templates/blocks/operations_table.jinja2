@@ -15,7 +15,9 @@
         {{ operation.timestamp.strftime('%Y-%m-%d %H:%M') }}
       </div>
       <div class="flex-cell" role="cell">
-        {{ operation.managed_asset.name }}
+        {% with portfolio = portfolio, asset = operation.managed_asset %}
+          {% include 'blocks/asset_name.jinja2' %}
+        {% endwith %}
       </div>
       <div class="flex-cell" role="cell">
         {{ operation.operation_type | replace('OperationType.', '') }}

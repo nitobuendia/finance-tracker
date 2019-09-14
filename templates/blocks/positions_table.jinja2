@@ -1,19 +1,61 @@
+{% import 'base/macros.jinja2' as macros %}
+
 <div class="flex-table" role="table" aria-label="Asset Positions">
 
   <div class="flex-header-row" role="row">
     <div class="flex-cell" role="columnheader">Asset</div>
-    <div class="flex-cell" role="columnheader">Quantity</div>
-    <div class="flex-cell" role="columnheader">Balance</div>
+    <div class="flex-cell" role="columnheader">Position</div>
+    <div class="flex-cell" role="columnheader">Market Value</div>
+    <div class="flex-cell" role="columnheader">Realized P&L</div>
+    <div class="flex-cell" role="columnheader">Realized ROI</div>
+    <div class="flex-cell" role="columnheader">Unrealized P&L</div>
+    <div class="flex-cell" role="columnheader">Unrealized ROI</div>
+    <div class="flex-cell" role="columnheader">Dividends</div>
+    <div class="flex-cell" role="columnheader">Dividend Yield</div>
   </div>
 
   {% for position in positions_list %}
     <div class="flex-row" role="row">
-      <div class="flex-cell" role="cell">{{ position.asset.name }}</div>
+      <div class="flex-cell" role="cell">
+        {% with portfolio = portfolio, asset = position.asset %}
+          {% include 'blocks/asset_name.jinja2' %}
+        {% endwith %}
+      </div>
       <div class="flex-cell" role="cell">
         <span>{{ '{:,.0f}'.format(position.quantity) }}</span>
       </div>
       <div class="flex-cell" role="cell">
-        <span>{{ '{:,.2f}'.format(position.balance) }}</span>
+        <span>{{ '{:,.2f}'.format(position.market_value) }}</span>
+      </div>
+      <div class="flex-cell" role="cell">
+        <span {{ macros.get_number_class(position.realized_pl) }}>
+          {{ '{:,.2f}'.format(position.realized_pl) }}
+        </span>
+      </div>
+      <div class="flex-cell" role="cell">
+        <span {{ macros.get_number_class(position.realized_roi) }}>
+          {{ '{:,.2f}'.format(position.realized_roi * 100) }}%
+        </span>
+      </div>
+      <div class="flex-cell" role="cell">
+        <span {{ macros.get_number_class(position.unrealized_pl) }}>
+          {{ '{:,.2f}'.format(position.unrealized_pl) }}
+        </span>
+      </div>
+      <div class="flex-cell" role="cell">
+        <span {{ macros.get_number_class(position.unrealized_roi) }}>
+          {{ '{:,.2f}'.format(position.unrealized_roi * 100) }}%
+        </span>
+      </div>
+      <div class="flex-cell" role="cell">
+        <span {{ macros.get_number_class(position.dividends) }}>
+          {{ '{:,.2f}'.format(position.dividends) }}
+        </span>
+      </div>
+      <div class="flex-cell" role="cell">
+        <span {{ macros.get_number_class(position.dividend_yield) }}>
+          {{ '{:,.2f}'.format(position.dividend_yield * 100) }}%
+        </span>
       </div>
     </div>
   {% else %}

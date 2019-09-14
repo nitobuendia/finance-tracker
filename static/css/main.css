@@ -25,6 +25,7 @@ h3,
 h4,
 h5,
 h6 {
+  color: #3c4043;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -68,4 +69,10 @@ div {
 
 .number-negative {
   color: #ea4335;
+}
+
+.subtext {
+  color: #80868B;
+  font-size: 0.8em;
+  margin-top: 0;
 }

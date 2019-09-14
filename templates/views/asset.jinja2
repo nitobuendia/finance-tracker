@@ -8,7 +8,7 @@
   {% endwith %}
 
   <h2>History</h1>
-   {% with operations_list = asset_position.operations %}
+   {% with operations_list = asset_operations %}
     {% include 'blocks/operations_table.jinja2' %}
   {% endwith %}
 {% endblock %}
