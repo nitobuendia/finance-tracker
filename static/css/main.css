@@ -1,0 +1,39 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+h1 {
+  font-family: 'Open Sans', sans-serif;
+}
+
+div {
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.flex-row,
+.flex-header-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0.2em;
+  width: 100%;
+}
+
+.flex-cell {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+
+
+.flex-header-row {
+  background-color: #4285F4;
+  color: #fff;
+  margin: 0;
+}
