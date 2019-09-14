@@ -1,0 +1,8 @@
+{% macro get_number_class(number) %}
+  {% if number > 0 %}
+    class="number-positive"
+  {% elif number < 0 %}
+    class="number-negative"
+  {% else %}
+  {% endif %}
+{% endmacro %}
