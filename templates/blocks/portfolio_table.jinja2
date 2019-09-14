@@ -3,7 +3,6 @@
   <div class="flex-header-row" role="row">
     <div class="flex-cell" role="columnheader">Id</div>
     <div class="flex-cell" role="columnheader">Name</div>
-    <div class="flex-cell" role="columnheader">Operations</div>
   </div>
 
   {% for portfolio in portfolio_list %}
@@ -14,7 +13,6 @@
           {{ portfolio.name }}
         </a>
       </div>
-      <div class="flex-cell" role="cell">&nbsp;</div>
     </div>
   {% else %}
     <div class="flex-row" role="row"><i>No portfolios found.</i></div>
