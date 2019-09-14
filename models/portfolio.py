@@ -1,6 +1,6 @@
 import json
 import uuid
-from typing import Mapping, Optional, Text
+from typing import Mapping, Optional, Sequence, Text
 
 _DEFAULT_CURRENCY = 'USD'
 
@@ -15,16 +15,12 @@ class Portfolio(object):
     Args:
       portfolio_name: Name of the portfolio.
       porfolio_currency: Currency in which porfolio operates.
-      portfolio_id: Id of the portfolio to create.
-          Only to be used to load previous state.
     """
     self._id = str(uuid.uuid4())
+    self.assets = {}
+
     self.name = portfolio_name
     self.currency = portfolio_currency
-
-    self.operations = []
-    self.assets = {}
-    self.asset_positions = {}
 
   def __str__(self):
     """Converts Portfolio to string."""

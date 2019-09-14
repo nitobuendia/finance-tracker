@@ -8,32 +8,51 @@ from typing import Mapping, Sequence, Text
 class Position(object):
   """Represents a financial position in a given asset."""
 
-  def __init__(self, managed_portfolio: portfolio.Portfolio,
+  def __init__(self,
                managed_asset: asset.Asset,
-               asset_operations: Sequence[operation.Operation],
-               asset_quantity: int, asset_balance: float):
+               quantity: int,
+               market_value: float,
+               realized_pl: float,
+               realized_roi: float,
+               unrealized_pl: float,
+               unrealized_roi: float,
+               dividends: float,
+               dividend_yield: float):
     """Instantiates an asset position.
 
     Args:
-      managed_portfolio: Portfolio where position exists.
       managed_asset: Asset whose position is represented.
-      asset_operations: List of operations for given asset.
-      asset_quantity: Quantity of the asset remaining.
-      asset_balance: Final value of the asset.
+      quantity: Quantity of the asset held.
+      market_value: Current value of the position.
+      realized_pl: Profit/Loss already realized.
+      realized_roi: ROI of alreadt realized transactions.
+      unrealized_pl: Potential Profit/Loss.
+      unrealized_roi: Potential ROI of unrealized operation.
+      dividends: Total dividends received.
+      dividend_yield: Average dividend yield received.
     """
-    self.portfolio = managed_portfolio
     self.asset = managed_asset
-    self.operations = asset_operations
-    self.quantity = asset_quantity
-    self.balance = asset_balance
+    self.quantity = quantity
+    self.market_value = market_value
+    self.realized_pl = realized_pl
+    self.realized_roi = realized_roi
+    self.unrealized_pl = unrealized_pl
+    self.unrealized_roi = unrealized_roi
+    self.dividends = dividends
+    self.dividend_yield = dividend_yield
 
   def to_dict(self) -> Mapping:
     """Returns Dict represtation of Position."""
     return {
-        'portfolio_id': self.portfolio.get_id(),
-        'asset': self.asset.name,
-        'quantity': self.quantity,
-        'balance': self.balance,
+        'asset': self.asset.get_id(),
+        'positquantityion': self.quantity,
+        'market_value': self.market_value,
+        'realized_pl': self.realized_pl,
+        'realized_roi': self.realized_roi,
+        'unrealized_pl': self.unrealized_pl,
+        'unrealized_roi': self.unrealized_roi,
+        'dividends': self.dividends,
+        'dividend_yield': self.dividend_yield,
     }
 
   def to_json(self) -> Text:

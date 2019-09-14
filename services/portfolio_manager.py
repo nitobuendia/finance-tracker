@@ -1,13 +1,15 @@
 """Manages operations on a portfolio."""
 
 import glob
+import itertools
 import os
 import pickle
 from models import asset
+from models import operation
 from models import portfolio
 from models import position
 from services import file_manager
-from typing import Mapping, Sequence, Text
+from typing import Mapping, Optional, Sequence, Text
 
 _PORTFOLIO_STORAGE_PATH = 'portfolios'
 _PORTFOLIO_GLOB_FILES = f'{_PORTFOLIO_STORAGE_PATH}/*'
@@ -15,7 +17,7 @@ _PORTFOLIO_GLOB_FILES = f'{_PORTFOLIO_STORAGE_PATH}/*'
 _PORTFOLIOS = {}
 
 
-def create_portfolio(portfolio_name: Text) -> portfolio.Portfolio:
+def add_portfolio(portfolio_name: Text) -> portfolio.Portfolio:
   """Creates a new portoflio.
 
   Args:
@@ -25,35 +27,9 @@ def create_portfolio(portfolio_name: Text) -> portfolio.Portfolio:
     New Portfolio.
   """
   new_portfolio = portfolio.Portfolio(portfolio_name)
-  _store_portfolio(new_portfolio)
+  store_portfolio(new_portfolio)
 
   return new_portfolio
-
-
-def get_porfolio_position(managed_portfolio: portfolio.Portfolio
-                          ) -> Mapping[asset.Asset, position.Position]:
-  """Gets the position of all assets in the portfolio.
-
-  Args:
-    managed_portfolio: Portfolio from which to obtain position.
-
-  Returns:
-    Map of assets and their current positions.
-  """
-  return managed_portfolio.asset_positions
-
-
-def _get_portfolio_from_file(portfolio_filename: Text) -> portfolio.Portfolio:
-  """Gets a porfolio name from a given file name.
-
-  Args:
-    portfolio_filename: File where portfolio is stored.
-
-  Returns:
-    Portfolio contents.
-  """
-  portfolio_info = file_manager.get_file_binary_content(portfolio_filename)
-  return pickle.loads(portfolio_info)
 
 
 def get_portfolio(portfolio_id: Text) -> portfolio.Portfolio:
@@ -66,7 +42,7 @@ def get_portfolio(portfolio_id: Text) -> portfolio.Portfolio:
     Portfolio. None if it does not exist.
   """
   portfolios = get_portfolios()
-  return portfolios.get(portfolio_id)
+  return portfolios[portfolio_id]
 
 
 def get_portfolios() -> Mapping[Text, portfolio.Portfolio]:
@@ -92,7 +68,7 @@ def get_portfolios() -> Mapping[Text, portfolio.Portfolio]:
   return _PORTFOLIOS
 
 
-def _store_portfolio(managed_portfolio: portfolio.Portfolio):
+def store_portfolio(managed_portfolio: portfolio.Portfolio):
   """Stores portoflio contents.
 
   Args:
@@ -103,3 +79,16 @@ def _store_portfolio(managed_portfolio: portfolio.Portfolio):
   portfolio_filename = (
       f'{_PORTFOLIO_STORAGE_PATH}/{managed_portfolio.get_id()}')
   file_manager.create_file(portfolio_filename, contents=serialized_portfolio)
+
+
+def _get_portfolio_from_file(portfolio_filename: Text) -> portfolio.Portfolio:
+  """Gets a porfolio name from a given file name.
+
+  Args:
+    portfolio_filename: File where portfolio is stored.
+
+  Returns:
+    Portfolio contents.
+  """
+  portfolio_info = file_manager.get_file_binary_content(portfolio_filename)
+  return pickle.loads(portfolio_info)

@@ -6,26 +6,48 @@ from typing import Mapping, Optional, Text
 class Asset(object):
   """Represents a financial asset."""
 
-  def __init__(self, asset_name: Text):
+  def __init__(
+          self, asset_code: Text, asset_name: Text, asset_price: float,
+          asset_currency: Text):
     """Instantiates financial Asset.
 
     Args:
-      asset_name: Name of the asset to create.
-      asset_id: Id of the asset to create.
-          Only to be used to load previous state.
+      managed_portfolio: Portfolio where asset is created.
+      asset_code: Asset code or id to create. Must be unique.
+      asset_name: Full name of the asset.
+      asset_price: Current asset price.
+      asset_currency: Currency of the asset.
     """
-    self._id = str(uuid.uuid4())
+    self._id = asset_code
+
     self.name = asset_name
+    self.current_price = asset_price
+    self.currency = asset_currency
+
+    self.operations = []
 
   def __str__(self):
     """Converts asset to string."""
-    return f'Asset<id: {self._id}, name: {self.name}>'
+    return (
+        'Asset<'
+        f'id: {self._id}, '
+        f'name: {self.name}, '
+        f'price: {self.current_price}, '
+        f'currency: {self.currency}'
+        '>'
+    )
+
+  def get_id(self):
+    """Gets asset id (asset code)."""
+    return self._id
 
   def to_dict(self) -> Mapping:
     """Returns Dict represtation of Asset."""
     return {
         'asset_id': self._id,
         'name': self.name,
+        'price': self.current_price,
+        'currency': self.currency,
     }
 
   def to_json(self) -> Text:
