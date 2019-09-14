@@ -6,7 +6,7 @@ from typing import Mapping, Optional, Text
 class Asset(object):
   """Represents a financial asset."""
 
-  def __init__(self, asset_name: Text, asset_id: Optional[Text] = None):
+  def __init__(self, asset_name: Text):
     """Instantiates financial Asset.
 
     Args:
@@ -14,7 +14,7 @@ class Asset(object):
       asset_id: Id of the asset to create.
           Only to be used to load previous state.
     """
-    self._id = asset_id or str(uuid.uuid4())
+    self._id = str(uuid.uuid4())
     self.name = asset_name
 
   def __str__(self):

@@ -18,8 +18,7 @@ class Operation(object):
 
   def __init__(self, timestamp: datetime.datetime, managed_asset: asset.Asset,
                operation_type: OperationType, quantity: int,
-               price_per_unit: float, price_currency: Text,
-               operation_id: Optional[Text] = None):
+               price_per_unit: float, price_currency: Text):
     """Instantiates an operation.
 
     Args:
@@ -32,7 +31,7 @@ class Operation(object):
       operation_id: Id of the operation to create.
           Only to be used to load previous state.
     """
-    self._id = operation_id or str(uuid.uuid4())
+    self._id = str(uuid.uuid4())
     self.timestamp = timestamp
     self.managed_asset = managed_asset
     self.operation_type = operation_type

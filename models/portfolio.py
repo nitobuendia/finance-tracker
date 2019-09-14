@@ -9,8 +9,7 @@ class Portfolio(object):
   """Represents a collection of assets and operations on them."""
 
   def __init__(self, portfolio_name: Text,
-               portfolio_currency: Optional[Text] = _DEFAULT_CURRENCY,
-               portfolio_id: Optional[Text] = None):
+               portfolio_currency: Optional[Text] = _DEFAULT_CURRENCY):
     """Instantiates a Portfolio.
 
     Args:
@@ -19,7 +18,7 @@ class Portfolio(object):
       portfolio_id: Id of the portfolio to create.
           Only to be used to load previous state.
     """
-    self._id = portfolio_id or str(uuid.uuid4())
+    self._id = str(uuid.uuid4())
     self.name = portfolio_name
     self.currency = portfolio_currency
 
