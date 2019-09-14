@@ -1,4 +1,17 @@
+/* Elements */
+a {
+  text-decoration: none;
+}
+
+a,
+a:hover,
+a:visited {
+  color: #4285F4;
+}
+
+
 body {
+  color: #202124;
   font-family: 'Roboto', sans-serif;
   height: 100%;
   margin: 0;
@@ -6,7 +19,12 @@ body {
   width: 100%;
 }
 
-h1 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -15,12 +33,19 @@ div {
   text-align: left;
 }
 
+
+/* Classes */
+
+.container {
+  margin: 2em;
+}
+
 .flex-row,
 .flex-header-row {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 0.2em;
+  padding: 0.5em 1em;
   width: 100%;
 }
 
@@ -31,9 +56,16 @@ div {
   flex: 1;
 }
 
-
 .flex-header-row {
   background-color: #4285F4;
   color: #fff;
   margin: 0;
+}
+
+.number-positive {
+  color: #34A853;
+}
+
+.number-negative {
+  color: #ea4335;
 }
