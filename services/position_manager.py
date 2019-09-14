@@ -32,7 +32,7 @@ def get_position(managed_asset: asset.Asset) -> position.Position:
       dividend_type: 0,
   }
   asset_operations = asset_manager.get_operations(managed_asset)
-  for asset_operation in asset_operations:
+  for asset_operation in asset_operations.values():
     # TODO: add currency conversion.
     total_quantity[asset_operation.operation_type] += asset_operation.quantity
     total_value[asset_operation.operation_type] += (

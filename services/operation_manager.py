@@ -7,7 +7,7 @@ from models import portfolio
 from models import operation
 from services import asset_manager
 from services import portfolio_manager
-from typing import Optional, Sequence, Text
+from typing import Mapping, Optional, Sequence, Text
 
 
 def add_operation(
@@ -55,8 +55,9 @@ def delete_operation(managed_portfolio: portfolio.Portfolio,
     ValueError: Operation not found in portfolio.
   """
   managed_asset = operation_to_remove.managed_asset
+  asset_operations = asset_manager.get_operations(managed_asset)
 
-  if operation_to_remove not in managed_asset.operations:
+  if operation_to_remove not in asset_operations.values():
     raise ValueError(
         f'{operation_to_remove} not found in {managed_asset}.')
 
@@ -83,19 +84,40 @@ def get_operation_type(operation_type_name: Text) -> operation.OperationType:
     raise ValueError(f'Unknown operation type: {operation_type_name}.')
 
 
+def get_operation(managed_portfolio: portfolio.Portfolio,
+                  operation_id: Text) -> operation.Operation:
+  """Gets an operation within the portfolio by id.
+
+  Args:
+    managed_portfolio: Portfolio from which to obtain operation.
+    operation_id: Operation to retrieve.
+
+  Raises:
+    ValueError: operation id not found.
+
+  Returns:
+    Operation for given id.
+  """
+  portfolio_operations = get_operations(managed_portfolio)
+  if operation_id not in portfolio_operations:
+    raise ValueError(
+        f'Operation {operation_id} not found in {managed_portfolio}.')
+  return portfolio_operations[operation_id]
+
+
 def get_operations(managed_portfolio: portfolio.Portfolio
-                   ) -> Sequence[operation.Operation]:
+                   ) -> Mapping[Text, operation.Operation]:
   """Gets all the position of all assets in the portfolio.
 
   Args:
     managed_portfolio: Portfolio from which to obtain operations.
 
   Returns:
-    List of all portfolio operations.
+    Map of portfolio operations to its ids.
   """
   managed_assets = asset_manager.get_assets(managed_portfolio)
-  portfolio_operations = list(itertools.chain.from_iterable([
-      managed_asset.operations for managed_asset in managed_assets.values()
-  ]))
-  portfolio_operations.sort(key=lambda x: x.timestamp)
+  portfolio_operations = {}
+  for managed_asset in managed_assets.values():
+    asset_operations = asset_manager.get_operations(managed_asset)
+    portfolio_operations.update(asset_operations)
   return portfolio_operations

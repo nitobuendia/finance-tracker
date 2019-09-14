@@ -24,7 +24,7 @@ class Asset(object):
     self.current_price = asset_price
     self.currency = asset_currency
 
-    self.operations = []
+    self.operations = {}
 
   def __str__(self):
     """Converts asset to string."""

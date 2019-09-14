@@ -62,6 +62,26 @@ def create_portfolio_asset(portfolio_id):
   return managed_asset.to_dict()
 
 
+@api_routes.route(
+    '/api/portfolios/<portfolio_id>/assets/<asset_code>/',
+    methods=['PATCH'])
+def update_portfolio_asset(portfolio_id, asset_code):
+  managed_portfolio = portfolio_manager.get_portfolio(portfolio_id)
+  managed_asset = asset_manager.get_asset(managed_portfolio, asset_code)
+
+  request_data = flask.request.get_json()
+
+  asset_name = request_data.get('asset_name')
+  asset_price = float(request_data.get('asset_price', 0.0))
+  asset_currency = request_data.get('asset_currency')
+
+  managed_asset = asset_manager.update_asset(
+      managed_portfolio, managed_asset, asset_name, asset_price,
+      asset_currency)
+
+  return managed_asset.to_dict()
+
+
 @api_routes.route('/api/portfolios/<portfolio_id>/position/', methods=['GET'])
 def get_portfolio_balance(portfolio_id):
   managed_portfolio = portfolio_manager.get_portfolio(portfolio_id)
@@ -79,11 +99,11 @@ def get_portfolio_balance(portfolio_id):
     '/api/portfolios/<portfolio_id>/operations/', methods=['GET'])
 def get_portfolio_operations(portfolio_id):
   managed_portfolio = portfolio_manager.get_portfolio(portfolio_id)
-  portfolio_positions = operation_manager.get_operations(managed_portfolio)
+  portfolio_operations = operation_manager.get_operations(managed_portfolio)
 
   return flask.jsonify([
       portfolio_operation.to_dict()
-      for portfolio_operation in portfolio_positions
+      for portfolio_operation in portfolio_operations.values()
   ])
 
 
@@ -115,7 +135,21 @@ def get_asset_operations(portfolio_id, asset_name):
   asset_operations = asset_manager.get_operations(managed_asset)
 
   return flask.jsonify([
-      asset_operation.to_dict() for asset_operation in asset_operations])
+      asset_operation.to_dict()
+      for asset_operation in asset_operations.values()
+  ])
+
+
+@api_routes.route(
+    '/api/portfolios/<portfolio_id>/operations/<operation_id>/',
+    methods=['DELETE'])
+def delete_asset_operations(portfolio_id, operation_id):
+  managed_portfolio = portfolio_manager.get_portfolio(portfolio_id)
+  operation_to_delete = (
+      operation_manager.get_operation(managed_portfolio, operation_id))
+  operation_manager.delete_operation(managed_portfolio, operation_to_delete)
+
+  return operation_to_delete.to_dict()
 
 
 @api_routes.route(

@@ -54,10 +54,10 @@ def add_operation(
   """
   asset_operations = get_operations(managed_asset)
 
-  if asset_operation in asset_operations:
+  if asset_operation in asset_operations.values():
     raise ValueError(f'{asset_operation} already exists in {managed_asset}.')
 
-  managed_asset.operations.append(asset_operation)
+  asset_operations[asset_operation.get_id()] = asset_operation
 
 
 def contains_asset(
@@ -88,10 +88,11 @@ def delete_operation(
   """
   asset_operations = get_operations(managed_asset)
 
-  if asset_operation not in asset_operations:
+  if asset_operation not in asset_operations.values():
     raise ValueError(f'{asset_operation} does not exist for {managed_asset}.')
 
-  asset_operations.remove(asset_operation)
+  operation_id = asset_operation.get_id()
+  del asset_operations[operation_id]
 
 
 def get_asset(managed_portfolio: portfolio.Portfolio,
@@ -129,14 +130,59 @@ def get_assets(
   return managed_portfolio.assets
 
 
+def get_operation(managed_asset: asset.Asset,
+                  operation_id: Text) -> operation.Operation:
+  """Gets the operation for the given id.
+
+  Args:
+    managed_asset: Asset from which to retrieve operation.
+    operation_id: Operation id to retrieve.
+
+  Returns:
+    Operation for given id.
+  """
+  asset_operations = get_operations(managed_asset)
+  if operation_id not in asset_operations.keys():
+    raise ValueError(f'Operation {operation_id} not found in {managed_asset}.')
+  return asset_operations[operation_id]
+
+
 def get_operations(
-        managed_asset: asset.Asset) -> Sequence[operation.Operation]:
+        managed_asset: asset.Asset) -> Mapping[Text, operation.Operation]:
   """Gets operations for a given asset.
 
   Args:
     managed_asset: Asset for which to retrieve operations.
 
   Returns:
-    List of operations done in given asset.
+    Map of operations done in given asset to its ids.
   """
   return managed_asset.operations
+
+
+def update_asset(managed_portfolio: portfolio.Portfolio,
+                 managed_asset: asset.Asset,
+                 asset_name: Optional[Text] = None,
+                 asset_price: Optional[float] = None,
+                 asset_currency: Optional[Text] = None) -> asset.Asset:
+  """Updates an asset information.
+
+  Args:
+    managed_asset: Asset to update.
+    asset_name: New name of the asset.
+    asset_price: Price of the asset.
+    asset_currency: Currency of the asset price.
+
+  Returns:
+    Asset updated.
+  """
+  if asset_name and asset_name != managed_asset.name:
+    managed_asset.name = asset_name
+  if asset_price and asset_price != managed_asset.current_price:
+    managed_asset.current_price = asset_price
+  if asset_currency and asset_currency != managed_asset.currency:
+    managed_asset.currency = asset_currency
+
+  portfolio_manager.store_portfolio(managed_portfolio)
+
+  return managed_asset
