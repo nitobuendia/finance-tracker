@@ -1,4 +1,5 @@
 {% extends 'base/template.jinja2' %}
+{% block title %}{{ asset.get_id() }} ({{ portfolio.name }}){% endblock %}
 {% block body %}
   <h1>Asset: {{ asset.name }} ({{ portfolio.name }})</h1>
 
