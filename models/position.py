@@ -16,6 +16,8 @@ class Position(object):
                realized_roi: float,
                unrealized_pl: float,
                unrealized_roi: float,
+               opportunity_pl: float,
+               opportunity_roi: float,
                dividends: float,
                dividend_yield: float):
     """Instantiates an asset position.
@@ -28,6 +30,8 @@ class Position(object):
       realized_roi: ROI of alreadt realized transactions.
       unrealized_pl: Potential Profit/Loss.
       unrealized_roi: Potential ROI of unrealized operation.
+      opportunity_pl: Potential Profit/Loss if you didn't sell.
+      opportunity_roi: Potential ROI if you didn't sell.
       dividends: Total dividends received.
       dividend_yield: Average dividend yield received.
     """
@@ -38,6 +42,8 @@ class Position(object):
     self.realized_roi = realized_roi
     self.unrealized_pl = unrealized_pl
     self.unrealized_roi = unrealized_roi
+    self.opportunity_pl = opportunity_pl
+    self.opportunity_roi = opportunity_roi
     self.dividends = dividends
     self.dividend_yield = dividend_yield
 

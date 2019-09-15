@@ -66,6 +66,11 @@ def get_position(managed_asset: asset.Asset) -> position.Position:
   unrealized_roi = (unrealized_pl / cost_of_remaining_units
                     if cost_of_remaining_units > 0 else 0)
 
+  current_value_of_sold_units = (
+      total_quantity[sell_type] * managed_asset.current_price)
+  opportunity_pl = total_value[sell_type] - current_value_of_sold_units
+  opportunity_roi = opportunity_pl / total_value[sell_type]
+
   dividends = total_value[dividend_type]
   dividend_per_share = (dividends / total_quantity[dividend_type]
                         if total_quantity[dividend_type] > 0 else 0)
@@ -73,8 +78,9 @@ def get_position(managed_asset: asset.Asset) -> position.Position:
                     if average_price[buy_type] > 0 else 0)
 
   return position.Position(
-      managed_asset, remaining_quantity, market_value, realized_pl,
-      realized_roi, unrealized_pl, unrealized_roi, dividends, dividend_yield)
+      managed_asset, remaining_quantity, market_value,
+      realized_pl, realized_roi, unrealized_pl, unrealized_roi,
+      opportunity_pl, opportunity_roi, dividends, dividend_yield)
 
 
 def get_positions(managed_portfolio: portfolio.Portfolio

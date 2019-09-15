@@ -10,6 +10,8 @@
     <div class="flex-cell" role="columnheader">Realized ROI</div>
     <div class="flex-cell" role="columnheader">Unrealized P&L</div>
     <div class="flex-cell" role="columnheader">Unrealized ROI</div>
+    <div class="flex-cell" role="columnheader">Opportunity P&L</div>
+    <div class="flex-cell" role="columnheader">Opportunity ROI</div>
     <div class="flex-cell" role="columnheader">Dividends</div>
     <div class="flex-cell" role="columnheader">Dividend Yield</div>
   </div>
@@ -45,6 +47,16 @@
       <div class="flex-cell" role="cell">
         <span {{ macros.get_number_class(position.unrealized_roi) }}>
           {{ '{:,.2f}'.format(position.unrealized_roi * 100) }}%
+        </span>
+      </div>
+      <div class="flex-cell" role="cell">
+        <span {{ macros.get_number_class(position.opportunity_pl) }}>
+          {{ '{:,.2f}'.format(position.opportunity_pl) }}
+        </span>
+      </div>
+      <div class="flex-cell" role="cell">
+        <span {{ macros.get_number_class(position.opportunity_roi) }}>
+          {{ '{:,.2f}'.format(position.opportunity_roi * 100) }}%
         </span>
       </div>
       <div class="flex-cell" role="cell">
