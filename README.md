@@ -1,6 +1,7 @@
 # Finance Tracker
 Finance Tracker is a light weight web app that allows you to track your Finance operations and its return on investment.
 
+![Finance Tracker preview](/doc/finance-tracker-preview.png?raw=true "Finance Tracker Preview")
 
 
 ## How It Works
