@@ -24,50 +24,75 @@
         {% endwith %}
       </div>
       <div class="flex-cell" role="cell">
-        {{ '{:,.0f}'.format(position.quantity) }}
+        {% if position.quantity != 0 %}
+          {{ '{:,.0f}'.format(position.quantity) }}
+        {% endif %}
       </div>
       <div class="flex-cell" role="cell">
-        {{ '{:,.2f}'.format(position.market_value) }}
+        {% if position.market_value != 0 %}
+          {{ '{:,.2f}'.format(position.market_value) }}
+          <p class="subtext">{{ position.asset.currency }}</p>
+        {% endif %}
       </div>
       <div class="flex-cell" role="cell">
-        <span {{ macros.get_number_class(position.realized_pl) }}>
-          {{ '{:,.2f}'.format(position.realized_pl) }}
-        </span>
+        {% if position.realized_pl != 0 %}
+          <span {{ macros.get_number_class(position.realized_pl) }}>
+            {{ '{:,.2f}'.format(position.realized_pl) }}
+            <p class="subtext">{{ position.asset.currency }}</p>
+          </span>
+        {% endif %}
       </div>
       <div class="flex-cell" role="cell">
-        <span {{ macros.get_number_class(position.realized_roi) }}>
-          {{ '{:,.2f}'.format(position.realized_roi * 100) }}%
-        </span>
+        {% if position.realized_roi != 0 %}
+          <span {{ macros.get_number_class(position.realized_roi) }}>
+            {{ '{:,.2f}'.format(position.realized_roi * 100) }}%
+          </span>
+        {% endif %}
       </div>
       <div class="flex-cell" role="cell">
-        <span {{ macros.get_number_class(position.unrealized_pl) }}>
-          {{ '{:,.2f}'.format(position.unrealized_pl) }}
-        </span>
+        {% if position.unrealized_pl != 0 %}
+          <span {{ macros.get_number_class(position.unrealized_pl) }}>
+            {{ '{:,.2f}'.format(position.unrealized_pl) }}
+            <p class="subtext">{{ position.asset.currency }}</p>
+          </span>
+        {% endif %}
       </div>
       <div class="flex-cell" role="cell">
-        <span {{ macros.get_number_class(position.unrealized_roi) }}>
-          {{ '{:,.2f}'.format(position.unrealized_roi * 100) }}%
-        </span>
+        {% if position.unrealized_roi != 0 %}
+          <span {{ macros.get_number_class(position.unrealized_roi) }}>
+            {{ '{:,.2f}'.format(position.unrealized_roi * 100) }}%
+          </span>
+        {% endif %}
       </div>
       <div class="flex-cell" role="cell">
-        <span {{ macros.get_number_class(position.opportunity_pl) }}>
-          {{ '{:,.2f}'.format(position.opportunity_pl) }}
-        </span>
+        {% if position.opportunity_pl != 0 %}
+          <span {{ macros.get_number_class(position.opportunity_pl) }}>
+            {{ '{:,.2f}'.format(position.opportunity_pl) }}
+            <p class="subtext">{{ position.asset.currency }}</p>
+          </span>
+        {% endif %}
       </div>
       <div class="flex-cell" role="cell">
-        <span {{ macros.get_number_class(position.opportunity_roi) }}>
-          {{ '{:,.2f}'.format(position.opportunity_roi * 100) }}%
-        </span>
+        {% if position.opportunity_roi != 0 %}
+          <span {{ macros.get_number_class(position.opportunity_roi) }}>
+            {{ '{:,.2f}'.format(position.opportunity_roi * 100) }}%
+          </span>
+        {% endif %}
       </div>
       <div class="flex-cell" role="cell">
-        <span {{ macros.get_number_class(position.dividends) }}>
-          {{ '{:,.2f}'.format(position.dividends) }}
-        </span>
+        {% if position.dividends != 0 %}
+          <span {{ macros.get_number_class(position.dividends) }}>
+            {{ '{:,.2f}'.format(position.dividends) }}
+            <p class="subtext">{{ position.asset.currency }}</p>
+          </span>
+        {% endif %}
       </div>
       <div class="flex-cell" role="cell">
-        <span {{ macros.get_number_class(position.dividend_yield) }}>
-          {{ '{:,.2f}'.format(position.dividend_yield * 100) }}%
-        </span>
+        {% if position.dividend_yield != 0 %}
+          <span {{ macros.get_number_class(position.dividend_yield) }}>
+            {{ '{:,.2f}'.format(position.dividend_yield * 100) }}%
+          </span>
+        {% endif %}
       </div>
     </div>
   {% else %}
