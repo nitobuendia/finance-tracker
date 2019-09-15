@@ -1,2 +1,3 @@
 *.pyc
 portfolios/*
+.DS_Store
