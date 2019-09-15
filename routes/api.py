@@ -117,6 +117,16 @@ def get_portfolio_asset(portfolio_id, asset_code):
 
 
 @api_routes.route(
+    '/api/portfolios/<portfolio_id>/assets/<asset_code>/',
+    methods=['DELETE'])
+def delete_portfolio_asset(portfolio_id, asset_code):
+  managed_portfolio = portfolio_manager.get_portfolio(portfolio_id)
+  managed_asset = asset_manager.get_asset(managed_portfolio, asset_code)
+  asset_manager.delete_asset(managed_portfolio, managed_asset)
+  return managed_asset.to_dict()
+
+
+@api_routes.route(
     '/api/portfolios/<portfolio_id>/assets/<asset_name>/position/',
     methods=['GET'])
 def get_portfolio_asset_balance(portfolio_id, asset_name):

@@ -75,6 +75,32 @@ def contains_asset(
   return asset_code in portfolio_assets
 
 
+def delete_asset(managed_portfolio: portfolio.Portfolio,
+                 managed_asset: asset.Asset):
+  """Deletes an asset from the portfolio.
+
+  Args:
+    managed_portfolio: Portfolio from which to delete asset.
+    managed_asset: Asset to delete.
+
+  Raises:
+    ValueError: Asset does not exist in portfolio.
+
+  Returns:
+    Removed asset.
+  """
+  asset_id = managed_asset.get_id()
+  if asset_id not in managed_portfolio.assets.keys():
+    raise ValueError(f'{managed_asset} does not exist in {managed_portfolio}')
+
+  # There is no need to remove operations as pickle will drop the asset and
+  # all the operations linked to it.
+  del managed_portfolio.assets[asset_id]
+  portfolio_manager.store_portfolio(managed_portfolio)
+
+  return managed_asset
+
+
 def delete_operation(
         managed_asset: asset.Asset, asset_operation: operation.Operation):
   """Removes an existing operation from the asset and updates position.
