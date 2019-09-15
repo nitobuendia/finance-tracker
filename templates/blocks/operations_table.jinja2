@@ -9,7 +9,7 @@
     <div class="flex-cell" role="columnheader">Total</div>
   </div>
 
-  {% for operation in operations_list %}
+  {% for operation in operations_list.values() %}
     <div class="flex-row" role="row">
       <div class="flex-cell" role="cell">
         {{ operation.timestamp.strftime('%Y-%m-%d %H:%M') }}
