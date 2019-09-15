@@ -69,7 +69,8 @@ def get_position(managed_asset: asset.Asset) -> position.Position:
   current_value_of_sold_units = (
       total_quantity[sell_type] * managed_asset.current_price)
   opportunity_pl = total_value[sell_type] - current_value_of_sold_units
-  opportunity_roi = opportunity_pl / total_value[sell_type]
+  opportunity_roi = (opportunity_pl / total_value[sell_type]
+                     if total_value[sell_type] > 0 else 0)
 
   dividends = total_value[dividend_type]
   dividend_per_share = (dividends / total_quantity[dividend_type]
