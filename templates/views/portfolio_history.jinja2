@@ -1,7 +1,10 @@
 {% extends 'base/template.jinja2' %}
 {% block title %}{{ portfolio.name }} - History{% endblock %}
 {% block body %}
-  <h1>History: {{ portfolio.name }}</h1>
+  <h1>
+    <a href="/portfolios/{{ portfolio.get_id() }}" class="material-icons">arrow_back</a>
+    History: {{ portfolio.name }}
+  </h1>
 
   {% with operations_list = portfolio_operations %}
     {% include 'blocks/operations_table.jinja2' %}
