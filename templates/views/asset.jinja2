@@ -1,7 +1,10 @@
 {% extends 'base/template.jinja2' %}
 {% block title %}{{ asset.get_id() }} ({{ portfolio.name }}){% endblock %}
 {% block body %}
-  <h1>Asset: {{ asset.name }} ({{ portfolio.name }})</h1>
+  <h1>Asset: {{ asset.get_id() }} - {{ asset.name }} ({{ portfolio.name }})</h1>
+  <a target="_blank" href="https://www.google.com/search?q=stock+{{ asset.get_id() }}">
+    View on Google Finance
+  </a>
 
   <h2>Balance</h2>
   {% with positions_list = [asset_position] %}
