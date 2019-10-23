@@ -37,6 +37,10 @@ div {
 
 /* Classes */
 
+.material-icons {
+  color: inherit;
+}
+
 .container {
   margin: 2em;
 }
