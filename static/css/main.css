@@ -50,6 +50,10 @@ div {
   width: 100%;
 }
 
+.flex-row:nth-child(odd) {
+  background-color: #f1f3f4;
+}
+
 .flex-row>.flex-cell {
   text-align: right;
 }
