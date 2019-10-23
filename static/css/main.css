@@ -50,6 +50,10 @@ div {
   width: 100%;
 }
 
+.flex-row>.flex-cell {
+  text-align: right;
+}
+
 .flex-cell {
   display: flex;
   flex-direction: column;
