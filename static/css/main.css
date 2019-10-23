@@ -37,7 +37,8 @@ div {
 
 /* Classes */
 
-.material-icons {
+a.material-icons,
+a:visited.material-icons {
   color: inherit;
 }
 
