@@ -21,11 +21,43 @@ class StockAttribute(enum.Enum):
   VALUE_OVER_EBITDA = 'Enterprise Value/EBITDA 6'
 
 
+def get_asset_stats(managed_asset: asset.Asset) -> stats.AssetStats:
+  """Gets the stats of a given asset.
+  Args:
+    managed_asset: Asset for which to get stats.
+
+  Returns:
+    Stats of the given asset.
+  """
+  if hasattr(managed_asset, 'stats') and managed_asset.stats:
+    return managed_asset.stats
+
+  return update_asset_stats(managed_asset)
+
+
+def get_portfolio_stats(managed_portfolio: portfolio.Portfolio
+                        ) -> Mapping[asset.Asset, stats.AssetStats]:
+  """Gets the stats for all assets in the portfolio.
+
+  Args:
+    managed_portfolio: Portfolio from which to obtain stats.
+
+  Returns:
+    Map of asssets and their stats.
+  """
+  portfolio_assets = asset_manager.get_assets(managed_portfolio)
+  portfolio_stats = {
+      managed_asset: get_asset_stats(managed_asset)
+      for managed_asset in portfolio_assets.values()
+  }
+  return portfolio_stats
+
+
 def update_asset_stats(managed_asset: asset.Asset) -> stats.AssetStats:
   """Updates stats of given assets.
 
   Args:
-    managed_asset: Asset for which to get stats.
+    managed_asset: Asset for which to update stats.
 
   Returns:
     Stats of the given asset.
@@ -83,7 +115,7 @@ def update_portfolio_stats(managed_portfolio: portfolio.Portfolio
   """Updates the stats for all assets in the portfolio.
 
   Args:
-    managed_portfolio: Portfolio from which to obtain stats.
+    managed_portfolio: Portfolio for which to update stats.
 
   Returns:
     Map of asssets and their stats.
@@ -100,7 +132,7 @@ def _get_stock_stat_value(stock_data, stock_attribute):
   """Gets the stock stat value from a given stock attribute.
 
   Args:
-    stock: Stock information (pandas Dataframe).
+    stock: Stock information(pandas Dataframe).
     attribute_name: Attribute from which value is requested.
 
   Returns:
