@@ -7,6 +7,7 @@ from services import asset_manager
 from services import operation_manager
 from services import portfolio_manager
 from services import position_manager
+from services import stats_manager
 
 api_routes = flask.Blueprint('api', __name__)
 
@@ -186,3 +187,27 @@ def create_asset_operation(portfolio_id, asset_code):
       price_per_unit, operation_currency)
 
   return new_operation.to_dict()
+
+
+@api_routes.route(
+    '/api/portfolios/<portfolio_id>/assets/<asset_name>/stats/',
+    methods=['PUT'])
+def update_asset_stats(portfolio_id, asset_name):
+  managed_portfolio = portfolio_manager.get_portfolio(portfolio_id)
+  managed_asset = asset_manager.get_asset(managed_portfolio, asset_name)
+  asset_stats = stats_manager.update_asset_stats(managed_asset)
+
+  return flask.jsonify(asset_stats.to_dict())
+
+
+@api_routes.route(
+    '/api/portfolios/<portfolio_id>/stats/',
+    methods=['PUT'])
+def get_asset_stats(portfolio_id,):
+  managed_portfolio = portfolio_manager.get_portfolio(portfolio_id)
+  portfolio_stats = stats_manager.update_portfolio_stats(managed_portfolio)
+
+  return flask.jsonify([
+      asset_stats.to_dict()
+      for asset_stats in portfolio_stats.values()
+  ])
