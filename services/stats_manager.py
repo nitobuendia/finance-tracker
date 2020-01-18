@@ -30,16 +30,20 @@ def update_asset_stats(managed_asset: asset.Asset) -> stats.AssetStats:
   Returns:
     Stats of the given asset.
   """
-  ticker = managed_asset.tracker
+  tracker = managed_asset.get_tracker()
+  price = managed_asset.current_price
+
+  if not tracker:
+    return stats.StockStats(managed_asset=managed_asset, price=price)
 
   try:
-    price = stock_info.get_live_price(ticker)
+    price = stock_info.get_live_price(tracker)
     managed_asset.current_price = price
   except Exception:
-    price = managed_asset.current_price
+    return stats.StockStats(managed_asset=managed_asset, price=price)
 
   try:  # TODO: handle all types of assets instead of only stocks.
-    stock_data = stock_info.get_stats(ticker)
+    stock_data = stock_info.get_stats(tracker)
     stock_stats = stats.StockStats(
         managed_asset=managed_asset,
         price=price,
