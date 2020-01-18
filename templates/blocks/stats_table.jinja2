@@ -14,7 +14,7 @@
     <div class="flex-cell" role="columnheader">Revenue Growth</div>
   </div>
 
-  {% for stats in portfolio_stats %}
+  {% for stats in stats_list %}
     <div class="flex-row" role="row">
       <div class="flex-cell" role="cell">
         {% with portfolio = portfolio, asset = stats.asset %}

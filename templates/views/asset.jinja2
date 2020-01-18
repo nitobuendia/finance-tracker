@@ -13,8 +13,8 @@
   </a>
 
   <h2>Financial Indicators</h2>
-  {% with stats = asset.stats %}
-    {% include 'blocks/asset_stats.jinja2' %}
+  {% with stats_list = [asset.stats] %}
+    {% include 'blocks/stats_table.jinja2' %}
   {% endwith %}
 
   <h2>Balance</h2>

@@ -6,7 +6,7 @@
     Stats: {{ portfolio.name }}
   </h1>
 
-  {% with portfolio_stats = portfolio_stats.values() %}
+  {% with stats_list = portfolio_stats.values() %}
     {% include 'blocks/stats_table.jinja2' %}
   {% endwith %}
 {% endblock %}
