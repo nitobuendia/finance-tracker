@@ -5,7 +5,9 @@
     <a href="/" class="material-icons">arrow_back</a>
     Portfolio: {{ portfolio.name }}
   </h1>
+  <a href="history/">History</a> · <a href="stats/">Stats</a>
 
+  <h2>Positions</h2>
   {% with positions_list = portfolio_positions.values() %}
     {% include 'blocks/positions_table.jinja2' %}
   {% endwith %}
