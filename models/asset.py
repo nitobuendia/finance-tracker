@@ -21,6 +21,7 @@ class Asset(object):
     self._id = asset_code
 
     self.name = asset_name
+    self.tracker = self._id.split(':')[-1]
     self.current_price = asset_price
     self.currency = asset_currency
 
@@ -31,6 +32,7 @@ class Asset(object):
     return (
         'Asset<'
         f'id: {self._id}, '
+        f'tracker: {self.tracker}, '
         f'name: {self.name}, '
         f'price: {self.current_price}, '
         f'currency: {self.currency}'
@@ -45,6 +47,7 @@ class Asset(object):
     """Returns Dict represtation of Asset."""
     return {
         'asset_id': self._id,
+        'tracker': self.tracker,
         'name': self.name,
         'price': self.current_price,
         'currency': self.currency,
