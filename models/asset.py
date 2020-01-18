@@ -19,9 +19,9 @@ class Asset(object):
       asset_currency: Currency of the asset.
     """
     self._id = asset_code
+    self.tracker = self.get_tracker()
 
     self.name = asset_name
-    self.tracker = self._id.split(':')[-1]
     self.current_price = asset_price
     self.currency = asset_currency
 
@@ -32,8 +32,8 @@ class Asset(object):
     """Converts asset to string."""
     return (
         'Asset<'
-        f'id: {self._id}, '
-        f'tracker: {self.tracker}, '
+        f'id: {self.get_id()}, '
+        f'tracker: {self.get_tracker()}, '
         f'name: {self.name}, '
         f'price: {self.current_price}, '
         f'currency: {self.currency}'
@@ -44,11 +44,17 @@ class Asset(object):
     """Gets asset id (asset code)."""
     return self._id
 
+  def get_tracker(self):
+    """Gets the asset tracker code, which is used to obtain data."""
+    if not hasattr(self, 'tracker') or not self.tracker:
+      self.tracker = self._id.split(':')[-1] or self._id
+    return self.tracker
+
   def to_dict(self) -> Mapping:
     """Returns Dict represtation of Asset."""
     return {
-        'asset_id': self._id,
-        'tracker': self.tracker,
+        'asset_id': self.get_id(),
+        'tracker': self.get_tracker(),
         'name': self.name,
         'price': self.current_price,
         'currency': self.currency,
