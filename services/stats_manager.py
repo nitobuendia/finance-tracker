@@ -37,13 +37,21 @@ def update_asset_stats(managed_asset: asset.Asset) -> stats.AssetStats:
     return stats.StockStats(managed_asset=managed_asset, price=price)
 
   try:
-    price = stock_info.get_live_price(tracker)
-    managed_asset.current_price = price
-  except Exception:
+    fetched_price = _parse_and_format_value(stock_info.get_live_price(tracker))
+  except AssertionError:
+    fetched_price = None
+
+  if not fetched_price:
+    return stats.StockStats(managed_asset=managed_asset, price=price)
+
+  price = fetched_price
+  managed_asset.current_price = price
+
+  stock_data = stock_info.get_stats(tracker)
+  if stock_data.empty:
     return stats.StockStats(managed_asset=managed_asset, price=price)
 
   try:  # TODO: handle all types of assets instead of only stocks.
-    stock_data = stock_info.get_stats(tracker)
     stock_stats = stats.StockStats(
         managed_asset=managed_asset,
         price=price,
@@ -124,14 +132,16 @@ def _parse_and_format_value(string_value):
   Returns:
     Value of the stat as a float.
   """
-  if str(string_value) == 'nan':
-    return float(0)
+  if str(string_value).lower() == 'nan':
+    return None
 
   if type(string_value) == float:
     return string_value
 
   if type(string_value) == int:
     return float(string_value)
+
+  string_value = str(string_value)
 
   if '%' in string_value:
     string_value = string_value.replace('%', '')
