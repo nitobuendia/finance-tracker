@@ -26,6 +26,7 @@ class Asset(object):
     self.currency = asset_currency
 
     self.operations = {}
+    self.stats = None
 
   def __str__(self):
     """Converts asset to string."""
