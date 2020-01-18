@@ -8,7 +8,7 @@
   <a target="_blank" href="https://www.google.com/search?q=stock+{{ asset.get_id() }}">
     View on Google Finance
   </a>,
-  <a target="_blank" href="https://finance.yahoo.com/quote/{{ asset.tracker }}/key-statistics?p={{ asset.tracker }}">
+  <a target="_blank" href="https://finance.yahoo.com/quote/{{ asset.get_tracker() }}/key-statistics?p={{ asset.get_tracker() }}">
     View on Yahoo! Finance
   </a>
 
