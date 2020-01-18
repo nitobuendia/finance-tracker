@@ -30,8 +30,7 @@ def update_asset_stats(managed_asset: asset.Asset) -> stats.AssetStats:
   Returns:
     Stats of the given asset.
   """
-  asset_code = managed_asset.get_id()
-  ticker = asset_code.split(':')[-1]
+  ticker = managed_asset.tracker
 
   try:
     price = stock_info.get_live_price(ticker)
