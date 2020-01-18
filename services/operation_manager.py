@@ -1,7 +1,6 @@
 """Manages operations in a portfolio."""
 
 import datetime
-import itertools
 from models import asset
 from models import portfolio
 from models import operation
@@ -18,7 +17,7 @@ def add_operation(
     quantity: int, price_per_unit: float,
     operation_currency: Optional[Text] = ''
 ) -> operation.Operation:
-  """Creates a new operation within a porfolio.
+  """Creates a new operation within a portfolio.
 
     Args:
       managed_portfolio: Portfolio where operation was created.
