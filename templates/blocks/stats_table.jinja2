@@ -1,0 +1,69 @@
+{% import 'base/macros.jinja2' as macros %}
+
+<div class="flex-table" role="table" aria-label="Asset Statistics">
+
+  <div class="flex-header-row" role="row">
+    <div class="flex-cell" role="columnheader">Asset</div>
+    <div class="flex-cell" role="columnheader">Price</div>
+    <div class="flex-cell" role="columnheader">EPS</div>
+    <div class="flex-cell" role="columnheader">P/E</div>
+    <div class="flex-cell" role="columnheader">Dividend Yield</div>
+    <div class="flex-cell" role="columnheader">Debt / Equity</div>
+    <div class="flex-cell" role="columnheader">Equity Value / EBITDA</div>
+    <div class="flex-cell" role="columnheader">Profit Margin</div>
+    <div class="flex-cell" role="columnheader">Revenue Growth</div>
+  </div>
+
+  {% for stats in portfolio_stats %}
+    <div class="flex-row" role="row">
+      <div class="flex-cell" role="cell">
+        {% with portfolio = portfolio, asset = stats.asset %}
+          {% include 'blocks/asset_name.jinja2' %}
+        {% endwith %}
+      </div>
+      <div class="flex-cell" role="cell">
+        {% if stats.price %}
+          {{ '{:,.2f}'.format(stats.price) }}
+          <p class="subtext">{{ stats.asset.currency }}</p>
+        {% endif %}
+      </div>
+      <div class="flex-cell" role="cell">
+        {% if stats.eps %}
+          {{ '{:,.2f}'.format(stats.eps) }}
+        {% endif %}
+      </div>
+      <div class="flex-cell" role="cell">
+        {% if stats.pe %}
+          {{ '{:,.2f}'.format(stats.pe) }}
+        {% endif %}
+      </div>
+      <div class="flex-cell" role="cell">
+        {% if stats.dividend_yield %}
+          {{ '{:,.2f}'.format(stats.dividend_yield * 100) }}%
+        {% endif %}
+      </div>
+      <div class="flex-cell" role="cell">
+        {% if stats.debt_to_equity %}
+          {{ '{:,.2f}'.format(stats.debt_to_equity) }}
+        {% endif %}
+      </div>
+      <div class="flex-cell" role="cell">
+        {% if stats.value_over_ebitda %}
+          {{ '{:,.2f}'.format(stats.value_over_ebitda) }}
+        {% endif %}
+      </div>
+      <div class="flex-cell" role="cell">
+        {% if stats.profit_margin %}
+          {{ '{:,.2f}'.format(stats.profit_margin * 100) }}%
+        {% endif %}
+      </div>
+      <div class="flex-cell" role="cell">
+        {% if stats.revenue_growth %}
+          {{ '{:,.2f}'.format(stats.revenue_growth * 100) }}%
+        {% endif %}
+      </div>
+    </div>
+  {% else %}
+    <div class="flex-row" role="row"><i>No assets found.</i></div>
+  {% endfor %}
+</div>

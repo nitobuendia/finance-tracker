@@ -1,0 +1,12 @@
+{% extends 'base/template.jinja2' %}
+{% block title %}{{ portfolio.name }} - Stats{% endblock %}
+{% block body %}
+  <h1>
+    <a href="/portfolios/{{ portfolio.get_id() }}" class="material-icons">arrow_back</a>
+    Stats: {{ portfolio.name }}
+  </h1>
+
+  {% with portfolio_stats = portfolio_stats.values() %}
+    {% include 'blocks/stats_table.jinja2' %}
+  {% endwith %}
+{% endblock %}

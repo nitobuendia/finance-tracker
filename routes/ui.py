@@ -5,6 +5,7 @@ from services import asset_manager
 from services import operation_manager
 from services import portfolio_manager
 from services import position_manager
+from services import stats_manager
 
 ui_routes = flask.Blueprint('ui', __name__)
 
@@ -37,6 +38,18 @@ def get_portfolio_history(portfolio_id):
       'views/portfolio_history.jinja2',
       portfolio=managed_portfolio,
       portfolio_operations=portfolio_operations,
+  )
+
+
+@ui_routes.route('/portfolios/<portfolio_id>/stats/', methods=['GET'])
+def get_portfolio_stats(portfolio_id):
+  managed_portfolio = portfolio_manager.get_portfolio(portfolio_id)
+  portfolio_stats = stats_manager.get_portfolio_stats(managed_portfolio)
+
+  return flask.render_template(
+      'views/portfolio_stats.jinja2',
+      portfolio=managed_portfolio,
+      portfolio_stats=portfolio_stats,
   )
 
 
