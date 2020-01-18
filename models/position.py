@@ -2,7 +2,7 @@ import json
 from models import asset
 from models import operation
 from models import portfolio
-from typing import Mapping, Sequence, Text
+from typing import Mapping, Text
 
 
 class Position(object):
@@ -27,7 +27,7 @@ class Position(object):
       quantity: Quantity of the asset held.
       market_value: Current value of the position.
       realized_pl: Profit/Loss already realized.
-      realized_roi: ROI of alreadt realized transactions.
+      realized_roi: ROI of already realized transactions.
       unrealized_pl: Potential Profit/Loss.
       unrealized_roi: Potential ROI of unrealized operation.
       opportunity_pl: Potential Profit/Loss if you didn't sell.
@@ -48,10 +48,10 @@ class Position(object):
     self.dividend_yield = dividend_yield
 
   def to_dict(self) -> Mapping:
-    """Returns Dict represtation of Position."""
+    """Returns Dict representation of Position."""
     return {
         'asset': self.asset.get_id(),
-        'positquantityion': self.quantity,
+        'quantity': self.quantity,
         'market_value': self.market_value,
         'realized_pl': self.realized_pl,
         'realized_roi': self.realized_roi,
