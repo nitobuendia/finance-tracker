@@ -1,3 +1,4 @@
 *.pyc
 portfolios/*
 .DS_Store
+.vscode/settings.json
