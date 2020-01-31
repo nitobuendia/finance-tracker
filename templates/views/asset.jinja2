@@ -12,10 +12,12 @@
     View on Yahoo! Finance
   </a>
 
-  <h2>Financial Indicators</h2>
-  {% with stats_list = [asset.stats] %}
-    {% include 'blocks/stats_table.jinja2' %}
-  {% endwith %}
+  {% if asset.stats %}
+    <h2>Financial Indicators</h2>
+    {% with stats_list = [asset.stats] %}
+      {% include 'blocks/stats_table.jinja2' %}
+    {% endwith %}
+  {% endif %}
 
   <h2>Balance</h2>
   {% with positions_list = [asset_position] %}
