@@ -59,15 +59,12 @@ a:visited.material-icons {
   background-color: #f1f3f4;
 }
 
-.flex-row>.flex-cell {
-  text-align: right;
-}
-
 .flex-cell {
   display: flex;
   flex-direction: column;
   flex-basis: 100%;
   flex: 1;
+  text-align: right;
 }
 
 .flex-header-row {
