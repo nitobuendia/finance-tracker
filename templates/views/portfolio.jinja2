@@ -5,7 +5,9 @@
     <a href="/" class="material-icons">arrow_back</a>
     Portfolio: {{ portfolio.name }}
   </h1>
-  <a href="history/">History</a> · <a href="stats/">Stats</a>
+  {% with portfolio = portfolio %}
+    {% include 'blocks/portfolio_menu.jinja2' %}
+  {% endwith %}
 
   <h2>Positions</h2>
   {% with positions_list = portfolio_positions.values() %}
