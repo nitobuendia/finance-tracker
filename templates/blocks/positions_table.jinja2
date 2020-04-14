@@ -16,7 +16,7 @@
     <div class="flex-cell" role="columnheader">Dividend Yield</div>
   </div>
 
-  {% for position in positions_list %}
+  {% for position in positions_list|sort(attribute='asset._id') %}
     <div class="flex-row" role="row">
       <div class="flex-cell" role="cell">
         {% with portfolio = portfolio, asset = position.asset %}
