@@ -51,6 +51,24 @@ There are different metrics
 At the moment, the metrics are calculated using an average price model.
 However, other models such as FIFO, LIFO, minimize or maximize gain could be used too adapting the solution.
 
+## API Endpoints
+
+The tool does not currently have a UI to allow adding and editing details. As such, HTTP calls (i.e. API-like) needs to be used instead. 
+
+### Endpoints
+The [documentation of the available endpoints is on this website](https://documenter.getpostman.com/view/7379488/Szt789gi?version=latest).
+
+### Considerations
+1. The base URL for the solution is `http://localhost:99` or `http://127.0.0.1:99`, you may need to change this if you run it from a different IP address, server or port.
+1. When you see a unique id (UUID) like `a699c7f7-96a4-4681-b8ce-b14dbc31bdf5`, it would usually refer to the ID of the item previously on the URL. Examples:
+    * On `http://127.0.0.1:99/api/portfolios/a699c7f7-96a4-4681-b8ce-b14dbc31bdf5/`
+        * `a699c7f7-96a4-4681-b8ce-b14dbc31bdf5/` represents the portfolio id.
+    * On `http://127.0.0.1:99/api/portfolios/a699c7f7-96a4-4681-b8ce-b14dbc31bdf5/assets/NASDAQ:AMZN/`:
+        * `a699c7f7-96a4-4681-b8ce-b14dbc31bdf5/` represents the portfolio id.
+        * `NASDAQ:AMZN` represents the asset id.
+    * On `http://127.0.0.1:99/api/portfolios/a699c7f7-96a4-4681-b8ce-b14dbc31bdf5/operations/91dddba6-c308-40e8-a921-b1deb8ad70ea/`:
+        * `a699c7f7-96a4-4681-b8ce-b14dbc31bdf5/` represents the portfolio id.
+        * `91dddba6-c308-40e8-a921-b1deb8ad70ea` represents the operation id.
 
 ## Technical Details
 
