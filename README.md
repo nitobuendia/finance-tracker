@@ -18,8 +18,7 @@ Assets are the main entities of the system. It represents financial instruments 
 
 Assets contain basic information such as the asset name, the currency and its current price.
 
-Note: at the moment, the current price is manually updated.
-In the future, APIs can be added to auto-update it and keep track of the assets in real time.
+Note: the price does not automatically update. You can update it manually or make an API request to update it based on Yahoo Finance data. For more details, read the API Endpoints section.
 
 ### Operations
 Operations are actions performed in an asset to modify its position or returns:
