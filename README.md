@@ -76,3 +76,9 @@ The solution is built in Python and uses `Flask` for the web server.
 At the moment, there is no need for a database. The state is kept using local file storages with `pickle` module.
 
 The solution is built using an MVC approach where `models`, `routes` and `services` represent each of the parts of the system.
+
+## Sponsoring
+If this is helpful, feel free to `Buy Me a Beer`; or check other options on the Github `❤️ Sponsor` link on the top of this page.
+
+
+<a href="https://www.buymeacoffee.com/nitobuendia" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/arial-orange.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
