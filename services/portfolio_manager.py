@@ -18,7 +18,7 @@ _PORTFOLIOS = {}
 
 
 def add_portfolio(portfolio_name: Text) -> portfolio.Portfolio:
-  """Creates a new portoflio.
+  """Creates a new portfolio.
 
   Args:
     portfolio_name: Name of the portfolio.
@@ -69,7 +69,7 @@ def get_portfolios() -> Mapping[Text, portfolio.Portfolio]:
 
 
 def store_portfolio(managed_portfolio: portfolio.Portfolio):
-  """Stores portoflio contents.
+  """Stores portfolio contents.
 
   Args:
     managed_portfolio: Portfolio to store.
@@ -82,7 +82,7 @@ def store_portfolio(managed_portfolio: portfolio.Portfolio):
 
 
 def _get_portfolio_from_file(portfolio_filename: Text) -> portfolio.Portfolio:
-  """Gets a porfolio name from a given file name.
+  """Gets a portfolio name from a given file name.
 
   Args:
     portfolio_filename: File where portfolio is stored.

@@ -14,7 +14,7 @@ class Portfolio(object):
 
     Args:
       portfolio_name: Name of the portfolio.
-      porfolio_currency: Currency in which porfolio operates.
+      portfolio_currency: Currency in which portfolio operates.
     """
     self._id = str(uuid.uuid4())
     self.assets = {}
