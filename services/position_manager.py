@@ -358,8 +358,8 @@ def _get_position_by_average(managed_asset: asset.Asset) -> position.Position:
   realized_pl, realized_roi = (
       _get_realized_pl_and_roi(buy_units_sold, sold_units))
 
-  unrealized_pl, unrealized_roi = (
-      _get_unrealized_pl_and_roi(buy_units_unsold, managed_asset.current_price))
+  unrealized_pl, unrealized_roi = _get_unrealized_pl_and_roi(
+      buy_units_unsold, managed_asset.current_price)
 
   opportunity_pl, opportunity_roi = _get_opportunity_pl_and_roi(
       sold_not_rebought_units, sold_rebought_units, rebought_units,
