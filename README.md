@@ -18,8 +18,7 @@ Assets are the main entities of the system. It represents financial instruments 
 
 Assets contain basic information such as the asset name, the currency and its current price.
 
-Note: at the moment, the current price is manually updated.
-In the future, APIs can be added to auto-update it and keep track of the assets in real time.
+Note: the price does not automatically update. You can update it manually or make an API request to update it based on Yahoo Finance data. For more details, read the API Endpoints section.
 
 ### Operations
 Operations are actions performed in an asset to modify its position or returns:
@@ -51,6 +50,24 @@ There are different metrics
 At the moment, the metrics are calculated using an average price model.
 However, other models such as FIFO, LIFO, minimize or maximize gain could be used too adapting the solution.
 
+## API Endpoints
+
+The tool does not currently have a UI to allow adding and editing details. As such, HTTP calls (i.e. API-like) needs to be used instead. 
+
+### Endpoints
+The [documentation of the available endpoints is on this website](https://documenter.getpostman.com/view/7379488/Szt789gi?version=latest).
+
+### Considerations
+1. The base URL for the solution is `http://localhost:99` or `http://127.0.0.1:99`, you may need to change this if you run it from a different IP address, server or port.
+1. When you see a unique id (UUID) like `a699c7f7-96a4-4681-b8ce-b14dbc31bdf5`, it would usually refer to the ID of the item previously on the URL. Examples:
+    * On `http://127.0.0.1:99/api/portfolios/a699c7f7-96a4-4681-b8ce-b14dbc31bdf5/`
+        * `a699c7f7-96a4-4681-b8ce-b14dbc31bdf5/` represents the portfolio id.
+    * On `http://127.0.0.1:99/api/portfolios/a699c7f7-96a4-4681-b8ce-b14dbc31bdf5/assets/NASDAQ:AMZN/`:
+        * `a699c7f7-96a4-4681-b8ce-b14dbc31bdf5/` represents the portfolio id.
+        * `NASDAQ:AMZN` represents the asset id.
+    * On `http://127.0.0.1:99/api/portfolios/a699c7f7-96a4-4681-b8ce-b14dbc31bdf5/operations/91dddba6-c308-40e8-a921-b1deb8ad70ea/`:
+        * `a699c7f7-96a4-4681-b8ce-b14dbc31bdf5/` represents the portfolio id.
+        * `91dddba6-c308-40e8-a921-b1deb8ad70ea` represents the operation id.
 
 ## Technical Details
 
@@ -59,3 +76,9 @@ The solution is built in Python and uses `Flask` for the web server.
 At the moment, there is no need for a database. The state is kept using local file storages with `pickle` module.
 
 The solution is built using an MVC approach where `models`, `routes` and `services` represent each of the parts of the system.
+
+## Sponsoring
+If this is helpful, feel free to `Buy Me a Beer`; or check other options on the Github `❤️ Sponsor` link on the top of this page.
+
+
+<a href="https://www.buymeacoffee.com/nitobuendia" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/arial-orange.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
