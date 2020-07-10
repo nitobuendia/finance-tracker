@@ -74,6 +74,7 @@ def update_asset_stats(managed_asset: asset.Asset) -> stats.AssetStats:
     fetched_price = None
 
   if not fetched_price:
+    print(f'{tracker} price was not updated.')
     return stats.StockStats(managed_asset=managed_asset, price=price)
 
   price = fetched_price
@@ -107,6 +108,7 @@ def update_asset_stats(managed_asset: asset.Asset) -> stats.AssetStats:
     managed_asset.stats = stock_stats
     return stock_stats
   except Exception:
+    print(f'{tracker} financial metrics were not updated.')
     return stats.StockStats(managed_asset=managed_asset, price=price)
 
 
@@ -145,13 +147,11 @@ def _get_stock_stat_value(stock_data, stock_attribute):
   try:
     attribute_series = attribute_value.values
   except Exception:
-    print(stock_attribute.value, 'no values')
     return attribute_value
 
   if attribute_series:
     return _parse_and_format_value(attribute_series[0])
   else:
-    print(stock_attribute.value, 'no item', attribute_series)
     return _parse_and_format_value('0')
 
 
