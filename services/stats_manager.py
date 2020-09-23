@@ -80,7 +80,12 @@ def update_asset_stats(managed_asset: asset.Asset) -> stats.AssetStats:
   price = fetched_price
   managed_asset.current_price = price
 
-  stock_data = stock_info.get_stats(tracker)
+  try:
+    stock_data = stock_info.get_stats(tracker)
+  except Exception:
+    print(f'Unable to update {managed_asset.get_id()} price.')
+    return stats.StockStats(managed_asset=managed_asset, price=price)
+
   if stock_data.empty:
     return stats.StockStats(managed_asset=managed_asset, price=price)
 
