@@ -626,7 +626,7 @@ def _get_weighted_average_value(operation_list: OperationIterable) -> float:
   """
   total_value = _get_total_value(operation_list)
   total_quantity = _get_total_quantity(operation_list)
-  return total_value / total_quantity
+  return total_value / total_quantity if total_quantity > 0 else 0
 
 
 def _get_average_value_by_type(
